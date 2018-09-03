@@ -1,0 +1,39 @@
+package com.tuespotsolutions.blacktube.player;
+
+import android.content.Intent;
+
+import com.tuespotsolutions.blacktube.R;
+
+public final class BackgroundPlayerActivity extends ServicePlayerActivity {
+
+    private static final String TAG = "BackgroundPlayerActivity";
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
+    public String getSupportActionTitle() {
+        return getResources().getString(R.string.title_activity_background_player);
+    }
+
+    @Override
+    public Intent getBindIntent() {
+        return new Intent(this, BackgroundPlayer.class);
+    }
+
+    @Override
+    public void startPlayerListener() {
+        if (player != null && player instanceof BackgroundPlayer.BasePlayerImpl) {
+            ((BackgroundPlayer.BasePlayerImpl) player).setActivityListener(this);
+        }
+    }
+
+    @Override
+    public void stopPlayerListener() {
+        if (player != null && player instanceof BackgroundPlayer.BasePlayerImpl) {
+            ((BackgroundPlayer.BasePlayerImpl) player).removeActivityListener(this);
+        }
+    }
+}
